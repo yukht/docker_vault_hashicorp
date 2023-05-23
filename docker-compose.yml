@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  vault:
+      image: hashicorp/vault
+      container_name: vault1
+      volumes:
+        - vault_config:/vault/config
+        - vault_logs:/vault/logs
+        - vault_file:/vault/file
+      environment:
+        - 'VAULT_LOCAL_CONFIG={"storage": {"file": {"path": "/vault/file"}},
+          "listener": [{"tcp": { "address": "vault1:8200", "tls_enable": true,
+          "tls_cert_file": "/vault/config/vault.crt", "tls_key_file": "/vault/config/vault.key"}}],
+          "default_lease_ttl": "168h", "max_lease_ttl": "720h", "ui": true}'
+        - 'VAULT_ADDR=https://vault1:8200'
+        - 'VAULT_CACERT=/vault/config/ca.crt'
+#        - 'VAULT_CAPATH=/vault/config'
+      networks:
+        vaultnet:
+      ports:
+        - 8180:8200
+      command:
+        - "server"
+      cap_add:
+        - IPC_LOCK
+      networks:
+        vaultnet:
+volumes:
+  vault_config:
+    driver: local
+    driver_opts:
+      type: 'volume'
+      o: 'bind'
+      device: './vault_config'
+  vault_logs:
+    driver: local
+    driver_opts:
+      type: 'volume'
+      o: 'bind'
+      device: './vault_logs'
+  vault_file:
+    driver: local
+    driver_opts:
+      type: 'volume'
+      o: 'bind'
+      device: './vault_file'
+networks:
+  vaultnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/28
+          gateway: 172.18.0.1
+
+

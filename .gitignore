@@ -1,0 +1,7 @@
+# Create this dirs
+**/vault_config
+**/vault_file
+**/vault_logs
+# Drafts
+**/test_data
+**/info
