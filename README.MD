@@ -1,8 +1,8 @@
-1 
+# 1
 
 mkdir vault_config vault_file vault_logs
 
-2
+# 2
 - Your AltName must match container name and container variables!
 - Generate Root Crt and Vault Crt
 
@@ -19,13 +19,13 @@ openssl x509 -req -extfile <(printf "subjectAltName=DNS:vault1,DNS:127.0.0.1") -
 
 openssl x509 -in vault/vault.crt -text -noout
 
-3
+# 3
 - Put ca.crt (for Vault verification), vault.crt, vault.key to vault_config
 - Grant read to Crt
 
 chmod o+r vault_config/ca.crt vault_config/vault.*
 
-4 
+# 4 
 - Before use cli you must unseal Vault (Enter Token Keys), and
 
 vault login
