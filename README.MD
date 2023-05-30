@@ -36,6 +36,7 @@ openssl x509 -in vault/vault.crt -text -noout
 
 ### 3
 - Put ca.crt (for Vault verification), vault.crt, vault.key to vault_config
+cp /ca/vault/{ca.crt,vault.crt,vault.key} ./vault_config/
 - Grant read to Crt
 
 chmod o+r vault_config/ca.crt vault_config/vault.*
