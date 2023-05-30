@@ -8,6 +8,11 @@ mkdir vault_config vault_file vault_logs
 
 mkdir -p /ca/vault && cd /ca
 
+cp /etc/ssl/openssl.cnf ./
+
+- Edit openssl.conf default parameters
+vi ./openssl.cnf
+
 openssl genrsa -out ca.key 2048
 
 openssl req -new -x509 -days 3650 -key ca.key -subj "/C=RU/ST=UF/L=Moscow/O=VAULT/CN=CA" -out ca.crt
