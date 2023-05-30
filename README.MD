@@ -13,6 +13,13 @@ cp /etc/ssl/openssl.cnf ./
 - Edit openssl.conf default parameters
 vi ./openssl.cnf
 
+```
+[ CA_default ]
+
+#dir            = ./demoCA              # Where everything is kept
+dir             = /ca                   # Where everything is kept
+```
+
 openssl genrsa -out ca.key 2048
 
 openssl req -new -x509 -days 3650 -key ca.key -subj "/C=RU/ST=UF/L=Moscow/O=VAULT/CN=CA" -out ca.crt
