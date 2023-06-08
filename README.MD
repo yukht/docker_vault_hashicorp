@@ -25,9 +25,9 @@ dir             = /ca                   # Where everything is kept
 ```
 openssl genrsa -config ./openssl.cnf -out ca.key 2048
 
-openssl req -new -x509 -days 3650 -key ca.key -subj "/C=RU/ST=UF/L=Moscow/O=VAULT/CN=CA" -config ./openssl.cnf -out ca.crt
+openssl req -new -x509 -days 3650 -key ca.key -subj "/C=RU/ST=RU/L=Moscow/O=VAULT/CN=CA" -config ./openssl.cnf -out ca.crt
 
-openssl req -newkey rsa:2048 -nodes -keyout vault/vault.key -subj "/C=RU/ST=UF/L=Moscow/O=VAULT/CN=vault1" -config ./openssl.cnf -out vault/vault.csr
+openssl req -newkey rsa:2048 -nodes -keyout vault/vault.key -subj "/C=RU/ST=RU/L=Moscow/O=VAULT/CN=vault1" -config ./openssl.cnf -out vault/vault.csr
 openssl x509 -req -extfile <(printf "subjectAltName=DNS:vault1,DNS:127.0.0.1") -days 3650 -in vault/vault.csr -CA ca.crt -CAkey ca.key -CAcreateserial -config ./openssl.cnf -out vault/vault.crt
 
 - Read your Crt for test:
